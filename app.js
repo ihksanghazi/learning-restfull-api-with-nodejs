@@ -2,10 +2,8 @@ const express = require("express");
 
 const app = express();
 
-app.use((req, res, next) => {
-	res.status(200).json({
-		message: "Restfull node js dan express",
-	});
-});
+const mahasiswaRouter = require("./routes/mahasiswa");
+
+app.use("/mahasiswa", mahasiswaRouter);
 
 module.exports = app;
