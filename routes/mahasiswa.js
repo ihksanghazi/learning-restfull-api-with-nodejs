@@ -1,19 +1,9 @@
 const express = require("express");
-const db = require("../config/mysql");
-
 const router = express.Router();
+const db = require("../config/database/mysql");
+const controller = require("../controller/index");
 
-router.get("/", (req, res, next) => {
-	var sql = "SELECT * FROM mahasiswa";
-	db.query(sql, (err, result) => {
-		if (err) throw err;
-
-		res.status(200).json({
-			message: "Get Method Mahasiswa",
-			data: result,
-		});
-	});
-});
+router.get("/", controller.mahasiswa.getAll);
 
 router.get("/search", (req, res, next) => {
 	const nim = req.query.nim;
