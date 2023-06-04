@@ -15,14 +15,22 @@ router.get("/", (req, res, next) => {
 	});
 });
 
-router.get("/:nim", (req, res, next) => {
-	var sql = `SELECT * FROM mahasiswa WHERE NIM = ${req.params.nim}`;
+router.get("/search", (req, res, next) => {
+	const nim = req.query.nim;
+	var sql = `SELECT * FROM mahasiswa WHERE NIM = ${nim}`;
 	db.query(sql, (err, result) => {
 		if (err) throw err;
-		res.status(200).json({
-			message: "Get Method Mahasiswa",
-			data: result,
-		});
+		if (result.length > 0) {
+			res.status(200).json({
+				message: "Mahasiswa Ditemukan",
+				data: result,
+			});
+		} else {
+			res.status(200).json({
+				message: "Mahasiswa Tidak Ditemukan",
+				data: result,
+			});
+		}
 	});
 });
 
@@ -52,8 +60,8 @@ router.put("/", (req, res, next) => {
 	});
 });
 
-router.delete("/", (req, res, next) => {
-	const nim = req.body.nim;
+router.delete("/:nim", (req, res, next) => {
+	const nim = req.params.nim;
 	var sql = `DELETE FROM MAHASISWA WHERE nim='${nim}' `;
 	db.query(sql, (err, result) => {
 		if (err) throw err;
