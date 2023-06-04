@@ -15,8 +15,13 @@ router.get("/:nim", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
+	const mahasiswa = {
+		nama: req.body.nama,
+		nim: req.body.nim,
+	};
 	res.status(200).json({
 		message: "Post Method Mahasiswa",
+		data: mahasiswa,
 	});
 });
 
