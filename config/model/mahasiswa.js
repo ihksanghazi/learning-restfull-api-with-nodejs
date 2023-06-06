@@ -6,7 +6,9 @@ var mahasiswa = db.define(
 	{
 		nim: Sequelize.INTEGER,
 		nama: Sequelize.STRING,
-		jurusan: Sequelize.STRING,
+		kd_jurusan: Sequelize.STRING,
+		angkatan: Sequelize.INTEGER,
+		kota: Sequelize.STRING,
 	},
 	{
 		freezeTableName: true,

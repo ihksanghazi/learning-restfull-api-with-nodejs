@@ -5,6 +5,8 @@ const controller = require("../controller/index");
 
 router.get("/", controller.mahasiswa.getAll);
 
+router.get("/search", controller.mahasiswa.search);
+
 router.get("/:nim", controller.mahasiswa.getByNim);
 
 router.post("/", controller.mahasiswa.post);
