@@ -5,6 +5,7 @@ const controller = {};
 controller.getAll = async function (req, res) {
 	try {
 		let mahasiswa = await model.mahasiswa.findAll({
+			include: [{ model: model.jurusan }],
 			attributes: [
 				["nim", "Nim Mahasiswa"],
 				["nama", "Nama Mahasiswa"],
