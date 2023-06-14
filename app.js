@@ -1,15 +1,31 @@
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-
-const app = express();
-
 const mahasiswaRouter = require("./routes/mahasiswa");
+const basicAuth = require("express-basic-auth");
+const helmet = require("helmet");
+
+app.use(helmet());
+
+app.use(
+	basicAuth({
+		users: { admin: "rahasia" },
+		unauthorizedResponse: basicAuthResponse,
+	})
+);
+
+function basicAuthResponse(req) {
+	return req.auth
+		? "Credentials" + req.auth.user + ":" + req.auth.password + "rejected"
+		: "Unauthorized";
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan("dev"));
+
 app.use("/mahasiswa", mahasiswaRouter);
 app.use("/assets", express.static("assets"));
 
