@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const mahasiswaRouter = require("./routes/mahasiswa");
 const basicAuth = require("express-basic-auth");
 const helmet = require("helmet");
+const mahasiswaRouter = require("./routes/mahasiswa");
+const axiosRouter = require("./routes/axios");
 
 app.use(helmet());
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 app.use("/mahasiswa", mahasiswaRouter);
+app.use("/axios", axiosRouter);
 app.use("/assets", express.static("assets"));
 
 app.use((req, res, next) => {
