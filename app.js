@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use(morgan("dev"));
 app.use("/mahasiswa", mahasiswaRouter);
+app.use("/assets", express.static("assets"));
 
 app.use((req, res, next) => {
 	const error = new Error("Tidak Ditemukan");

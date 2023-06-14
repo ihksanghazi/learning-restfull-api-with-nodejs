@@ -10,6 +10,7 @@ var mahasiswa = db.define(
 		kd_jurusan: Sequelize.STRING,
 		angkatan: Sequelize.INTEGER,
 		kota: Sequelize.STRING,
+		foto: Sequelize.STRING,
 	},
 	{
 		freezeTableName: true,

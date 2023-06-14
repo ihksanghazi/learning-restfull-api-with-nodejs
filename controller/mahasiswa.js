@@ -12,6 +12,7 @@ controller.getAll = async function (req, res) {
 				["kd_jurusan", "Kode Jurusan"],
 				["angkatan", "Tahun Angkatan"],
 				"kota",
+				"foto",
 			],
 		});
 		if (mahasiswa.length > 0) {
@@ -101,6 +102,7 @@ controller.post = async function (req, res) {
 			kd_jurusan: req.body.kd_jurusan,
 			angkatan: req.body.angkatan,
 			kota: req.body.kota,
+			foto: req.file.path,
 		});
 		res.status(201).json({
 			message: "Data Mahasiswa Berhasil Ditambahkan",
