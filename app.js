@@ -7,20 +7,26 @@ const helmet = require("helmet");
 const mahasiswaRouter = require("./routes/mahasiswa");
 const axiosRouter = require("./routes/axios");
 
+// swagger ui express
+const swaggerUi = require("swagger-ui-express");
+const apiDocumentation = require("./apiDocs.json");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(apiDocumentation));
+// end swagger
+
 app.use(helmet());
 
-app.use(
-	basicAuth({
-		users: { admin: "rahasia" },
-		unauthorizedResponse: basicAuthResponse,
-	})
-);
+// app.use(
+// 	basicAuth({
+// 		users: { admin: "rahasia" },
+// 		unauthorizedResponse: basicAuthResponse,
+// 	})
+// );
 
-function basicAuthResponse(req) {
-	return req.auth
-		? "Credentials" + req.auth.user + ":" + req.auth.password + "rejected"
-		: "Unauthorized";
-}
+// function basicAuthResponse(req) {
+// 	return req.auth
+// 		? "Credentials" + req.auth.user + ":" + req.auth.password + "rejected"
+// 		: "Unauthorized";
+// }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
