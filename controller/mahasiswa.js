@@ -4,6 +4,9 @@ const controller = {};
 
 controller.getAll = async function (req, res) {
 	try {
+		let page = parseInt(req.query.page);
+		let record = parseInt(req.query.record);
+		let start = (page - 1) * record;
 		let mahasiswa = await model.mahasiswa.findAll({
 			include: [{ model: model.jurusan }],
 			attributes: [
@@ -14,11 +17,22 @@ controller.getAll = async function (req, res) {
 				"kota",
 				"foto",
 			],
+			limit: record,
+			offset: start,
 		});
+
+		jumlahData = await model.mahasiswa.count();
+		let pagination = {
+			page,
+			record,
+			totalPage: Math.ceil(jumlahData / record),
+		};
+
 		if (mahasiswa.length > 0) {
 			res.status(200).json({
 				message: "Ambil Semua Data Mahasiswa",
 				data: mahasiswa,
+				pagination: pagination,
 			});
 		} else {
 			res.status(200).json({
